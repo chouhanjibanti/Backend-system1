@@ -1,0 +1,31 @@
+version: "3.5"
+ 
+services:
+ 
+  postgres:
+    image: postgres:17
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: restaurant_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+ 
+  billing-app:
+    build: .
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/restaurant_db
+      # SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/restaurant_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+ 
+volumes:
+  postgres_data:
+ 
