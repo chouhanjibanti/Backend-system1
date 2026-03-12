@@ -1,3 +1,7 @@
+# ==============================================================
+
+# for local development
+
 # FROM eclipse-temurin:21-jdk-jammy
 
 # WORKDIR /app
@@ -7,6 +11,10 @@
 # EXPOSE 9000
 
 # ENTRYPOINT ["java","-jar","app.jar"]
+
+# ==============================================================
+
+# for the deployment 
 
 FROM maven:3.9.9-eclipse-temurin-21 AS build
 
