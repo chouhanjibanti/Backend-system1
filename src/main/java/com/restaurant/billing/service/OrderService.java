@@ -2,6 +2,7 @@ package com.restaurant.billing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.restaurant.billing.dto.BillResponse;
 import com.restaurant.billing.dto.CreateOrderRequest;
@@ -128,6 +129,7 @@ public class OrderService {
 		
 		return PdfGenerator.generate(order);
 	}
+	@Transactional
 	public Order addItem(Long orderId, OrderItemRequest request){
 
 	    Order order = orderRepo.findById(orderId)
@@ -140,8 +142,12 @@ public class OrderService {
 	    orderItem.setMenuItem(item);
 	    orderItem.setQuantity(request.getQuantity());
 	    orderItem.setOrder(order);
+	    orderItem.setPrice(item.getPrice() * request.getQuantity());
 
 	    order.getItems().add(orderItem);
+	    
+	    // Update order total amount
+	    order.setTotalAmount(order.getTotalAmount() + orderItem.getPrice());
 
 	    return orderRepo.save(order);
 	}
