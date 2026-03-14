@@ -40,4 +40,31 @@ public class AuthController {
             return ResponseEntity.status(500).body(response);
         }
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<Map<String, String>> getCurrentUser() {
+        try {
+            Map<String, String> response = new HashMap<>();
+            response.put("username", "user"); // Simple response for now
+            response.put("role", "USER");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Failed to get current user");
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, String>> logout() {
+        try {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Logout successful");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Logout failed");
+            return ResponseEntity.status(500).body(response);
+        }
+    }
 }
