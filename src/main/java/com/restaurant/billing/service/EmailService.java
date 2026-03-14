@@ -29,7 +29,9 @@ public class EmailService {
 			
 			sender.send(message);
 		} catch (MailException e) {
-			throw new RuntimeException("Failed to send email: " + e.getMessage(), e);
+			// Log the error but don't break the order flow
+			System.err.println("Email sending failed: " + e.getMessage());
+			throw new RuntimeException("Email service temporarily unavailable. Bill generated successfully.", e);
 		} catch (Exception e) {
 			throw new RuntimeException("Error preparing email: " + e.getMessage(), e);
 		}

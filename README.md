@@ -187,10 +187,6 @@ Client → Controller → Service → Repository → Database
 
 ## 👨‍💻 Author
 
-**Jayesh Borase**
-**+91 7798319136**
-**jayeshborase701@gmail.com**
-
 ---
 
 ## ⭐ If you like this project
